@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = mongoose.Schema(
 	{
@@ -40,12 +41,20 @@ const userSchema = mongoose.Schema(
 		occupation: String,
 		viewedProfile: Number,
 		impressions: Number,
-		passwordChangeAt: Date,
-		passwordResetToken: String,
-		passwordResetExpires: Date,
 	},
 	{ timestamps: true }
 );
+
+userSchema.pre('save', function (next) {
+	const password = this.password;
+	const hashedPassword = bcrypt.hashSync(password);
+	const profileView = Math.floor(Math.random() * 10000);
+	const impress = Math.floor(Math.random() * 10000);
+	this.password = hashedPassword;
+	this.viewedProfile = profileView;
+	this.impressions = impress;
+	next();
+});
 
 const USER_MODEL = mongoose.model('User', userSchema);
 
