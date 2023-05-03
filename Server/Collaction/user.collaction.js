@@ -58,3 +58,23 @@ exports.loginUserCollaction = async (req, res) => {
 		});
 	}
 };
+
+exports.getMeCollaction = async (req, res) => {
+	try {
+		const { email } = req.user;
+		const user = await Service.loginUserService(email);
+
+		const { password, ...other } = user.toObject();
+
+		res.status(200).json({
+			status: 'Success',
+			message: 'User Get Successfully..',
+			user: other,
+		});
+	} catch (error) {
+		res.status(404).json({
+			status: 'Failed',
+			message: 'Invalid User',
+		});
+	}
+};
