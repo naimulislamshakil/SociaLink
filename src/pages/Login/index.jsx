@@ -15,7 +15,6 @@ import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { tokens } from '../../theme';
 import { useFormik } from 'formik';
-import { Password } from '@mui/icons-material';
 import * as yup from 'yup';
 
 const Login = () => {

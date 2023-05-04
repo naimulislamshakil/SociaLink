@@ -1,6 +1,5 @@
 import { Typography, useTheme } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { tokens } from '../../theme';
 
 function Copyright(props) {
@@ -9,7 +8,7 @@ function Copyright(props) {
 	return (
 		<Typography
 			variant="body2"
-			color="text.secondary"
+			color={colors.grey[100]}
 			align="center"
 			{...props}
 		>
