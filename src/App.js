@@ -7,6 +7,8 @@ import Register from './pages/Register';
 import { Route, Routes } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { ColorModeContext, useMode } from './theme';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 	const [theme, colorMode] = useMode();
@@ -24,6 +26,7 @@ function App() {
 					</Routes>
 					<Footer />
 				</div>
+				<ToastContainer />
 			</ThemeProvider>
 		</ColorModeContext.Provider>
 	);
