@@ -6,11 +6,10 @@ import {
 	Typography,
 	useTheme,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { tokens } from '../../theme';
 import {
 	ManageAccountsOutlined,
-	EditOutlined,
 	LocationOnOutlined,
 	WorkOutlineOutlined,
 } from '@mui/icons-material';
@@ -22,7 +21,6 @@ import UserImage from '../UserImage';
 const Profile = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
-	const [add, setAdd] = useState(true);
 	const user = JSON.parse(localStorage.getItem('user'));
 	const navigate = useNavigate();
 

@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import Profile from '../../components/Profile';
 import React from 'react';
 import Post from '../../components/Post';
