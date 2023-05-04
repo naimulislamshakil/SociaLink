@@ -1,13 +1,16 @@
 import axios from 'axios';
 import { SINGUP_FAIL, SINGUP_LOADING, SINGUP_SUCCESS } from './actionType';
 
-export const singUpAction = () => async (dispatch) => {
+export const singUpAction = (data) => async (dispatch) => {
 	try {
 		dispatch({
 			type: SINGUP_LOADING,
 		});
 
-		const res = await axios.post('https://test-backend-2-6d1b.vercel.app/data');
+		const res = await axios.post(
+			'http://localhost:5000/api/v1/auth/register',
+			data
+		);
 
 		dispatch({
 			type: SINGUP_SUCCESS,

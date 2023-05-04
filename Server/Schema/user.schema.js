@@ -47,7 +47,7 @@ const userSchema = mongoose.Schema(
 
 userSchema.pre('save', function (next) {
 	const password = this.password;
-	const hashedPassword = bcrypt.hashSync(password);
+	const hashedPassword = bcrypt.hashSync(password, 10);
 	const profileView = Math.floor(Math.random() * 10000);
 	const impress = Math.floor(Math.random() * 10000);
 	this.password = hashedPassword;

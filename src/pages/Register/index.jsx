@@ -16,19 +16,25 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { tokens } from '../../theme';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { singUpAction } from '../../Redux/Action/index';
 
 const Register = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
+	const dispatch = useDispatch();
+	const { loading, message, error } = useSelector((state) => state.singUp);
 
 	const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
 		useFormik({
 			initialValues,
 			validationSchema: userSchema,
 			onSubmit: (values) => {
-				console.log(values);
+				dispatch(singUpAction(values));
 			},
 		});
+
+	console.log({ loading, error, message });
 	return (
 		<Container component="main" maxWidth="xs">
 			<Box
@@ -69,13 +75,13 @@ const Register = () => {
 						color="secondary"
 						fullWidth
 						id="text"
-						value={values.lastname}
+						value={values.lastName}
 						onBlur={handleBlur}
 						onChange={handleChange}
 						label="Last Name"
-						name="lastname"
-						error={!!touched.lastname && !!errors.lastname}
-						helperText={touched.lastname && errors.lastname}
+						name="lastName"
+						error={!!touched.lastName && !!errors.lastName}
+						helperText={touched.lastName && errors.lastName}
 						autoComplete="text"
 						autoFocus
 					/>
@@ -149,7 +155,7 @@ const Register = () => {
 
 const initialValues = {
 	firstName: '',
-	lastname: '',
+	lastName: '',
 	email: '',
 	password: '',
 };
@@ -159,7 +165,7 @@ const regularExpression =
 
 const userSchema = yup.object().shape({
 	firstName: yup.string().required('Required'),
-	lastname: yup.string().required('Required'),
+	lastName: yup.string().required('Required'),
 	email: yup.string().email('Invalid Email').required('Required'),
 	password: yup
 		.string()
