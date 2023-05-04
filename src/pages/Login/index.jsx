@@ -10,14 +10,14 @@ import {
 	Typography,
 	useTheme,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { tokens } from '../../theme';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { singInAction } from '../../Redux/Action';
+import { meAction, singInAction } from '../../Redux/Action';
 import { toast } from 'react-toastify';
 import Loading from '../Loading';
 
@@ -26,7 +26,15 @@ const Login = () => {
 	const colors = tokens(theme.palette.mode);
 	const dispatch = useDispatch();
 	const { loading, error, message } = useSelector((state) => state.singIn);
+	const { message: me, error: err } = useSelector((state) => state.me);
 	const navigator = useNavigate();
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+	const token = localStorage.getItem('token');
+
+	// USER PARSISTENCE
+	useEffect(() => {
+		dispatch(meAction(token));
+	}, [dispatch, token]);
 
 	const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
 		useFormik({
@@ -37,7 +45,22 @@ const Login = () => {
 			},
 		});
 
-	console.log({ loading, error, message });
+	console.log({ me, err });
+
+	if (err || me.status === 'Failed') {
+		localStorage.removeItem('token');
+		localStorage.removeItem('user');
+		toast.error('Pleace Sing In!');
+	}
+
+	if (me.status === 'Success') {
+		// eslint-disable-next-line no-lone-blocks
+		{
+			// eslint-disable-next-line no-unused-expressions
+			user ? '' : localStorage.setItem('user', me.user);
+		}
+		navigator('/feed');
+	}
 
 	if (message.status === 'Failed') {
 		toast.error(message.message);
