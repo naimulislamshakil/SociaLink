@@ -1,0 +1,3 @@
+export const SINGUP_LOADING = 'SINGUP_LOADING';
+export const SINGUP_FAIL = 'SINGUP_FAIL';
+export const SINGUP_SUCCESS = 'SINGUP_SUCCESS';
