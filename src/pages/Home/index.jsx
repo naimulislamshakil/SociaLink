@@ -5,25 +5,30 @@ import Post from '../../components/Post';
 import FriendList from '../../components/FriendList';
 
 const Home = () => {
-	const isMobile = useMediaQuery('(min-width:600px)');
+	const isNotMobile = useMediaQuery('(min-width:1000px)');
 	return (
 		<Box>
 			<Box
 				width="100%"
 				padding="2rem 6%"
-				display={isMobile ? 'flex' : 'block'}
+				display={isNotMobile ? 'flex' : 'block'}
 				gap="0.5rem"
 				justifyContent="space-between"
 			>
-				<Grid md={4}>
+				<Box flexBasis={isNotMobile ? '26%' : undefined}>
 					<Profile />
-				</Grid>
-				<Grid md={4}>
+				</Box>
+				<Box
+					flexBasis={isNotMobile ? '42%' : undefined}
+					mt={isNotMobile ? undefined : '2rem'}
+				>
 					<Post />
-				</Grid>
-				<Grid md={4}>
-					<FriendList />
-				</Grid>
+				</Box>
+				{isNotMobile && (
+					<Box flexBasis="26%">
+						<FriendList />
+					</Box>
+				)}
 			</Box>
 		</Box>
 	);
