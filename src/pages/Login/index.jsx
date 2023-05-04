@@ -11,24 +11,48 @@ import {
 	useTheme,
 } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { tokens } from '../../theme';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { singInAction } from '../../Redux/Action';
+import { toast } from 'react-toastify';
+import Loading from '../Loading';
 
 const Login = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
+	const dispatch = useDispatch();
+	const { loading, error, message } = useSelector((state) => state.singIn);
+	const navigator = useNavigate();
 
 	const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
 		useFormik({
 			initialValues,
 			validationSchema: userSchema,
 			onSubmit: (values) => {
-				console.log(values);
+				dispatch(singInAction(values));
 			},
 		});
+
+	console.log({ loading, error, message });
+
+	if (message.status === 'Failed') {
+		toast.error(message.message);
+	}
+
+	if (message.status === 'Success') {
+		localStorage.setItem('user', JSON.stringify(message.user));
+		localStorage.setItem('token', message.token);
+		navigator('/feed');
+	}
+
+	if (loading) {
+		<Loading />;
+	}
+
 	return (
 		<Container component="main" maxWidth="xs">
 			<Box

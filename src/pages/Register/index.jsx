@@ -37,8 +37,6 @@ const Register = () => {
 			},
 		});
 
-	console.log({ loading, error, message });
-
 	if (loading) {
 		<Loading />;
 	}
