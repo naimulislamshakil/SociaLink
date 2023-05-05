@@ -45,7 +45,7 @@ const Login = () => {
 			},
 		});
 
-	console.log({ me, err });
+	console.log({});
 
 	if (err || me.status === 'Failed') {
 		localStorage.removeItem('token');

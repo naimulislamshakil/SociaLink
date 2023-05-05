@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 
 const userSchema = mongoose.Schema(
 	{
@@ -33,14 +34,18 @@ const userSchema = mongoose.Schema(
 			type: String,
 			default: '',
 		},
-		friends: {
-			type: Array,
-			default: [],
-		},
-		post: {
-			type: Array,
-			default: [],
-		},
+		friends: [
+			{
+				type: ObjectId,
+				ref: 'USER_MODEL',
+			},
+		],
+		post: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'POST',
+			},
+		],
 		location: String,
 		occupation: String,
 		viewedProfile: Number,

@@ -86,12 +86,13 @@ export const meAction = (token) => async (dispatch) => {
 };
 
 export const createPostAction = (token, id, data) => async (dispatch) => {
-	dispatch({
-		type: CREATE_POST_LOADING,
-	});
 	try {
+		dispatch({
+			type: CREATE_POST_LOADING,
+		});
+
 		const res = await axios.post(
-			`http://localhost:5000/api/v1/createPost:${id}`,
+			`http://localhost:5000/api/v1/createPost/${id}`,
 			data,
 			{
 				headers: {

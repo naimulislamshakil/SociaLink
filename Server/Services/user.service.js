@@ -8,5 +8,11 @@ exports.createUserService = async (data) => {
 
 exports.loginUserService = async (email) => {
 	const result = await USER_MODEL.findOne({ email });
+
+	return result;
+};
+exports.meService = async (email) => {
+	const result = await USER_MODEL.findOne({ email }).populate('post');
+
 	return result;
 };

@@ -7,6 +7,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 
 const userRoute = require('./Routes/V1/user.route');
+const postRoute = require('./Routes/V1/post.route');
+
 const port = process.env.PORT || 5000;
 require('dotenv').config();
 
@@ -33,6 +35,7 @@ app.use(express.json());
 
 // CALL ROUTE
 app.use('/api/v1', userRoute);
+app.use('/api/v1', postRoute);
 
 app.get('/', (req, res) => {
 	res.send('<h1>How are you?</h1>');

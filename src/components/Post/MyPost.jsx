@@ -50,12 +50,15 @@ const MyPost = () => {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				const data = {
+				const userPost = {
 					image: data?.data?.url,
 					description: post,
 				};
+				console.log(userPost);
 
-				dispatch(createPostAction(localStorage.getItem('token'), _id, data));
+				dispatch(
+					createPostAction(localStorage.getItem('token'), _id, userPost)
+				);
 			});
 	};
 	return (

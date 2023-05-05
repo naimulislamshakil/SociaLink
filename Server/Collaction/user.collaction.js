@@ -61,7 +61,8 @@ exports.loginUserCollaction = async (req, res) => {
 exports.getMeCollaction = async (req, res) => {
 	try {
 		const { email } = req.user;
-		const user = await Service.loginUserService(email);
+		console.log(email);
+		const user = await Service.meService(email);
 
 		const { password, ...other } = user.toObject();
 
