@@ -1,5 +1,8 @@
 import axios from 'axios';
 import {
+	CREATE_POST_FAIL,
+	CREATE_POST_LOADING,
+	CREATE_POST_SUCCESS,
 	ME_FAIL,
 	ME_LOADING,
 	ME_SUCCESS,
@@ -77,6 +80,34 @@ export const meAction = (token) => async (dispatch) => {
 	} catch (error) {
 		dispatch({
 			type: ME_FAIL,
+			payload: error?.message,
+		});
+	}
+};
+
+export const createPostAction = (token, id, data) => async (dispatch) => {
+	dispatch({
+		type: CREATE_POST_LOADING,
+	});
+	try {
+		const res = await axios.post(
+			`http://localhost:5000/api/v1/createPost:${id}`,
+			data,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Basic ${token}`,
+				},
+			}
+		);
+
+		dispatch({
+			type: CREATE_POST_SUCCESS,
+			payload: res?.data,
+		});
+	} catch (error) {
+		dispatch({
+			type: CREATE_POST_FAIL,
 			payload: error?.message,
 		});
 	}

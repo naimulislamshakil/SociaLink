@@ -1,11 +1,21 @@
 import { Box, useMediaQuery } from '@mui/material';
 import Profile from '../../components/Profile';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Post from '../../components/Post';
 import FriendList from '../../components/FriendList';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 	const isNotMobile = useMediaQuery('(min-width:1000px)');
+	const navigat = useNavigate();
+	const token = localStorage.getItem('token');
+	const user = JSON.parse(localStorage.getItem('user'));
+
+	useEffect(() => {
+		if (!token || !user) {
+			navigat('/');
+		}
+	}, [token, user, navigat]);
 	return (
 		<Box>
 			<Box

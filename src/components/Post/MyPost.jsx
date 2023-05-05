@@ -23,15 +23,19 @@ import {
 	MicOutlined,
 	MoreHorizOutlined,
 } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPostAction } from '../../Redux/Action';
 
 const MyPost = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const isNotMobile = useMediaQuery('(min-width:1000px)');
+	const dispatch = useDispatch();
+	const { message, loading, error } = useSelector((state) => state.createPost);
 	const [isImage, setIsImage] = useState(false);
 	const [image, setImage] = useState(null);
 	const [post, setPost] = useState('');
-	const { picturePath } = JSON.parse(localStorage.getItem('user'));
+	const { picturePath, _id } = JSON.parse(localStorage.getItem('user'));
 
 	const imageBB = 'aca65d68a0810361f2d2ced87f951d28';
 
@@ -45,7 +49,14 @@ const MyPost = () => {
 			body: formData,
 		})
 			.then((res) => res.json())
-			.then((data) => console.log(data?.data?.url));
+			.then((data) => {
+				const data = {
+					image: data?.data?.url,
+					description: post,
+				};
+
+				dispatch(createPostAction(localStorage.getItem('token'), _id, data));
+			});
 	};
 	return (
 		<WidgetWrapper bgcolor={colors.grey[900]}>

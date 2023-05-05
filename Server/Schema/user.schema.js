@@ -37,10 +37,16 @@ const userSchema = mongoose.Schema(
 			type: Array,
 			default: [],
 		},
+		post: {
+			type: Array,
+			default: [],
+		},
 		location: String,
 		occupation: String,
 		viewedProfile: Number,
 		impressions: Number,
+		linkedin: String,
+		twiter: String,
 	},
 	{ timestamps: true }
 );

@@ -38,7 +38,6 @@ const Profile = () => {
 		twiter,
 	} = user;
 
-	console.log({ location, occupation });
 	return (
 		<WidgetWrapper bgcolor={colors.grey[900]}>
 			{/* FIRST ROW */}

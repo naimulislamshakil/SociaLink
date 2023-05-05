@@ -9,3 +9,7 @@ export const SINGIN_SUCCESS = 'SINGIN_SUCCESS';
 export const ME_LOADING = 'ME_LOADING';
 export const ME_FAIL = 'ME_FAIL';
 export const ME_SUCCESS = 'ME_SUCCESS';
+
+export const CREATE_POST_LOADING = 'CREATE_POST_LOADING';
+export const CREATE_POST_FAIL = 'CREATE_POST_FAIL';
+export const CREATE_POST_SUCCESS = 'CREATE_POSTE_SUCCESS';
