@@ -78,3 +78,20 @@ exports.getMeCollaction = async (req, res) => {
 		});
 	}
 };
+
+exports.getAllUserCollaction = async (req, res) => {
+	try {
+		const result = await Service.getAllUserService();
+
+		res.status(200).json({
+			status: 'Success',
+			message: 'User Get Successfully..',
+			result,
+		});
+	} catch (error) {
+		res.status(404).json({
+			status: 'Failed',
+			message: 'User Not Get.',
+		});
+	}
+};

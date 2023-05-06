@@ -22,7 +22,7 @@ import { useSelector } from 'react-redux';
 const Profile = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
-	const user = useSelector((state) => state.user);
+	const user = useSelector((state) => state.user.user);
 	const navigate = useNavigate();
 
 	const {

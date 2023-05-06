@@ -12,7 +12,14 @@ exports.loginUserService = async (email) => {
 	return result;
 };
 exports.meService = async (email) => {
-	const result = await USER_MODEL.findOne({ email }).populate('post');
+	const result = await USER_MODEL.findOne({ email })
+		.populate('post')
+		.populate('friends');
 
+	return result;
+};
+
+exports.getAllUserService = async () => {
+	const result = await USER_MODEL.find().populate('post').populate('friends');
 	return result;
 };

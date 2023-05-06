@@ -19,39 +19,35 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from '../Loading';
-import { singUp } from '../../Store/Slices/UserSlices';
+import { setSingUp, singUp } from '../../Store/Slices/UserSlices';
+import axios from 'axios';
 
 const Register = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const dispatch = useDispatch();
-	const { loading, message, error } = useSelector((state) => state.users);
+	const message = useSelector((state) => state.message);
 	const navigator = useNavigate();
 
 	const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
 		useFormik({
 			initialValues,
 			validationSchema: userSchema,
-			onSubmit: (values) => {
-				dispatch(singUp(values));
+			onSubmit: async (values) => {
+				const res = await axios.post(
+					'localhost:5000/api/v1/auth/registe',
+					values
+				);
+
+				dispatch(
+					setSingUp({
+						message: res.data,
+					})
+				);
 			},
 		});
 
-	if (loading) {
-		<Loading />;
-	}
-
-	if (message.status === 'Failed') {
-		toast.error(message.message);
-	}
-
-	if (message.status === 'Success') {
-		navigator('/');
-	}
-
-	if (error === 'Request failed with status code 404') {
-		toast.error('User Alrady Exgist');
-	}
+	console.log(message);
 
 	return (
 		<Container component="main" maxWidth="xs">

@@ -49,10 +49,6 @@ const Login = () => {
 		navigator('/feed');
 	}
 
-	// useEffect(() => {
-	// 	dispatch(parsist(token));
-	// }, [dispatch, token]);
-
 	return (
 		<Container component="main" maxWidth="xs">
 			<Box

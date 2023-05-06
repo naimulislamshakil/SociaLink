@@ -34,7 +34,7 @@ const MyPost = () => {
 	const [isImage, setIsImage] = useState(false);
 	const [image, setImage] = useState(null);
 	const [post, setPost] = useState('');
-	const { picturePath, _id } = useSelector((state) => state.user);
+	const { picturePath, _id } = useSelector((state) => state.user.user);
 
 	const imageBB = 'aca65d68a0810361f2d2ced87f951d28';
 
