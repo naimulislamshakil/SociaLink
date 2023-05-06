@@ -17,15 +17,15 @@ import { tokens } from '../../theme';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { singUpAction } from '../../Redux/Action/index';
 import { toast } from 'react-toastify';
 import Loading from '../Loading';
+import { singUp } from '../../Store/Slices/UserSlices';
 
 const Register = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const dispatch = useDispatch();
-	const { loading, message, error } = useSelector((state) => state.singUp);
+	const { loading, message, error } = useSelector((state) => state.users);
 	const navigator = useNavigate();
 
 	const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -33,7 +33,7 @@ const Register = () => {
 			initialValues,
 			validationSchema: userSchema,
 			onSubmit: (values) => {
-				dispatch(singUpAction(values));
+				dispatch(singUp(values));
 			},
 		});
 

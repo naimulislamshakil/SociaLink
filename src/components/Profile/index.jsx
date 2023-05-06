@@ -17,11 +17,12 @@ import WidgetWrapper from '../WidgetWrapper';
 import FlexBetween from '../FlexBeyween';
 import { useNavigate } from 'react-router-dom';
 import UserImage from '../UserImage';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
-	const user = JSON.parse(localStorage.getItem('user'));
+	const user = useSelector((state) => state.user);
 	const navigate = useNavigate();
 
 	const {

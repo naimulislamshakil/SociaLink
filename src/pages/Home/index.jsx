@@ -1,21 +1,20 @@
 import { Box, useMediaQuery } from '@mui/material';
 import Profile from '../../components/Profile';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Post from '../../components/Post';
 import FriendList from '../../components/FriendList';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
 	const isNotMobile = useMediaQuery('(min-width:1000px)');
+	const token = useSelector((state) => state.token);
 	const navigat = useNavigate();
-	const token = localStorage.getItem('token');
-	const user = JSON.parse(localStorage.getItem('user'));
 
-	useEffect(() => {
-		if (!token || !user) {
-			navigat('/');
-		}
-	}, [token, user, navigat]);
+	if (!token) {
+		navigat('/');
+	}
+
 	return (
 		<Box>
 			<Box

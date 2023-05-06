@@ -10,71 +10,48 @@ import {
 	Typography,
 	useTheme,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { tokens } from '../../theme';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { meAction, singInAction } from '../../Redux/Action';
-import { toast } from 'react-toastify';
-import Loading from '../Loading';
+import axios from 'axios';
+import { setLogin } from '../../Store/Slices/UserSlices';
 
 const Login = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const dispatch = useDispatch();
-	const { loading, error, message } = useSelector((state) => state.singIn);
-	const { message: me, error: err } = useSelector((state) => state.me);
 	const navigator = useNavigate();
-	const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
-	const token = localStorage.getItem('token');
-
-	// USER PARSISTENCE
-	useEffect(() => {
-		dispatch(meAction(token));
-	}, [dispatch, token]);
+	const token = useSelector((state) => state.token);
 
 	const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
 		useFormik({
 			initialValues,
 			validationSchema: userSchema,
-			onSubmit: (values) => {
-				dispatch(singInAction(values));
+			onSubmit: async (values) => {
+				const res = await axios.post(
+					'http://localhost:5000/api/v1/auth/login',
+					values
+				);
+
+				dispatch(
+					setLogin({
+						token: res.data.token,
+					})
+				);
 			},
 		});
 
-	console.log({});
-
-	if (err || me.status === 'Failed') {
-		localStorage.removeItem('token');
-		localStorage.removeItem('user');
-		toast.error('Pleace Sing In!');
-	}
-
-	if (me.status === 'Success') {
-		// eslint-disable-next-line no-lone-blocks
-		{
-			// eslint-disable-next-line no-unused-expressions
-			user ? '' : localStorage.setItem('user', me.user);
-		}
+	if (token) {
 		navigator('/feed');
 	}
 
-	if (message.status === 'Failed') {
-		toast.error(message.message);
-	}
-
-	if (message.status === 'Success') {
-		localStorage.setItem('user', JSON.stringify(message.user));
-		localStorage.setItem('token', message.token);
-		navigator('/feed');
-	}
-
-	if (loading) {
-		<Loading />;
-	}
+	// useEffect(() => {
+	// 	dispatch(parsist(token));
+	// }, [dispatch, token]);
 
 	return (
 		<Container component="main" maxWidth="xs">
