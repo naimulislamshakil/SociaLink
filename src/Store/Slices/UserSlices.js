@@ -4,7 +4,7 @@ const authSlice = createSlice({
 	name: 'auth',
 	initialState: {
 		user: {},
-		users: [],
+		post: [],
 		token: null,
 		loading: true,
 		error: null,
@@ -20,13 +20,13 @@ const authSlice = createSlice({
 		userParsist: (state, action) => {
 			state.user = action.payload;
 		},
-		getAllUser: (state, action) => {
-			state.users = action.payload;
+		createPost: (state, action) => {
+			state.post = action.payload;
 		},
 	},
 });
 
-export const { setLogin, setSingUp, userParsist, getAllUser } =
+export const { setLogin, setSingUp, userParsist, getAllUser, createPost } =
 	authSlice.actions;
 
 export default authSlice.reducer;

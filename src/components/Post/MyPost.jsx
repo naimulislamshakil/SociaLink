@@ -23,18 +23,21 @@ import {
 	MicOutlined,
 	MoreHorizOutlined,
 } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const MyPost = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const isNotMobile = useMediaQuery('(min-width:1000px)');
-	const dispatch = useDispatch();
-	// const { message, loading, error } = useSelector((state) => state.createPost);
+	const token = useSelector((state) => state.token);
 	const [isImage, setIsImage] = useState(false);
 	const [image, setImage] = useState(null);
 	const [post, setPost] = useState('');
-	const { picturePath, _id } = useSelector((state) => state.user.user);
+	const { picturePath, _id, firstName, lastName, location } = useSelector(
+		(state) => state.user.user
+	);
 
 	const imageBB = 'aca65d68a0810361f2d2ced87f951d28';
 
@@ -48,15 +51,38 @@ const MyPost = () => {
 			body: formData,
 		})
 			.then((res) => res.json())
-			.then((data) => {
+			.then(async (data) => {
 				const userPost = {
+					userId: _id,
+					userPicturePath: picturePath,
+					firstName,
+					lastName,
+					location,
 					image: data?.data?.url,
 					description: post,
 				};
-				console.log(userPost);
 
-				dispatch();
-				// createPostAction(localStorage.getItem('token'), _id, userPost)
+				const res = await axios.post(
+					'http://localhost:5000/api/v1/createPost',
+					userPost,
+					{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							Authorization: `Basic ${token}`,
+						},
+					}
+				);
+
+				if (res.data.status === 'Success') {
+					toast.success(res.data.message);
+					setImage(null);
+					setPost('');
+				} else {
+					toast.error(res.data.message);
+					setImage(null);
+					setPost('');
+				}
 			});
 	};
 	return (
