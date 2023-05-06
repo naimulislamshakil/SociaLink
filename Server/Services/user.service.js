@@ -1,3 +1,4 @@
+const POST_MODEL = require('../Schema/post.schema');
 const USER_MODEL = require('../Schema/user.schema');
 
 exports.createUserService = async (data) => {
@@ -20,6 +21,6 @@ exports.meService = async (email) => {
 };
 
 exports.getAllUserService = async () => {
-	const result = await USER_MODEL.find().populate('post').populate('friends');
+	const result = await POST_MODEL.find();
 	return result;
 };

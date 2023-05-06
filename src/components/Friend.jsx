@@ -7,28 +7,26 @@ import { tokens } from '../theme';
 import FlexBetween from './FlexBeyween';
 import UserImage from './UserImage';
 
-const Friend = ({ friendId, name, subtitle, userPicturePath, friends }) => {
+const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { _id } = useSelector((state) => state.user.user);
+	const friends = useSelector((state) => state.user.user.friends);
 	const token = useSelector((state) => state.token);
 
 	const isFriend = friends.find((friend) => friend._id === friendId);
 
 	const patchFriend = () => {};
+	const profile = () => {
+		navigate(`/profile/${friendId}`);
+	};
 
 	return (
 		<FlexBetween>
 			<FlexBetween gap="1rem">
 				<UserImage image={userPicturePath} size="55px" />
-				<Box
-					onClick={() => {
-						navigate(`/profile/${friendId}`);
-						navigate(0);
-					}}
-				>
+				<Box onClick={() => profile()}>
 					<Typography
 						color={colors.grey[100]}
 						variant="h5"

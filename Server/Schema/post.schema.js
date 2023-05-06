@@ -15,11 +15,11 @@ const postSchema = mongoose.Schema({
 	},
 	location: String,
 	description: String,
-	picturePath: String,
+	image: String,
 	userPicturePath: String,
 	likes: {
-		type: Map,
-		of: Boolean,
+		type: Array,
+		default: [],
 	},
 	comments: {
 		type: Array,

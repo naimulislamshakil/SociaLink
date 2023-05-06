@@ -20,13 +20,13 @@ const authSlice = createSlice({
 		userParsist: (state, action) => {
 			state.user = action.payload;
 		},
-		createPost: (state, action) => {
+		getPost: (state, action) => {
 			state.post = action.payload;
 		},
 	},
 });
 
-export const { setLogin, setSingUp, userParsist, getAllUser, createPost } =
+export const { setLogin, setSingUp, userParsist, getAllUser, getPost } =
 	authSlice.actions;
 
 export default authSlice.reducer;
