@@ -10,7 +10,7 @@ import { tokens } from '../theme';
 import FlexBetween from './FlexBeyween';
 import UserImage from './UserImage';
 
-const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
+const Friend = ({ friendId, name, subtitle, userPicturePath, list = '' }) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 	const { _id } = useSelector((state) => state.user);
 	const token = useSelector((state) => state.token);
 
-	const isFriend = friends.find((friend) => friend._id === friendId);
+	const isFriend = friends.find((friend) => friend.id === friendId);
 
 	const patchFriend = async () => {
 		const res = await axios.get(
@@ -49,6 +49,10 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 		navigate(`/profile/${friendId}`);
 	};
 
+	const deleteFriend = async () => {
+		console.log('object');
+	};
+
 	return (
 		<FlexBetween>
 			<FlexBetween gap="1rem">
@@ -73,14 +77,14 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 				</Box>
 			</FlexBetween>
 			<IconButton
-				onClick={() => patchFriend()}
+				onClick={list === 'list' ? () => deleteFriend() : () => patchFriend()}
 				sx={{ backgroundColor: colors.grey[900], p: '0.6rem' }}
 			>
 				{_id !== friendId ? (
-					isFriend ? (
+					list === 'list' ? (
 						<PersonRemoveOutlined sx={{ color: colors.grey[100] }} />
 					) : (
-						<PersonAddOutlined sx={{ color: colors.grey[100] }} />
+						!isFriend && <PersonAddOutlined sx={{ color: colors.grey[100] }} />
 					)
 				) : (
 					''

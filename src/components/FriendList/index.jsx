@@ -9,6 +9,7 @@ const FriendList = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const friends = useSelector((state) => state.user?.friends);
+
 	return (
 		<WidgetWrapper bgcolor={colors.grey[900]}>
 			<Typography
@@ -20,13 +21,14 @@ const FriendList = () => {
 				Friend List
 			</Typography>
 			<Box display="flex" flexDirection="column" gap="1.5rem">
-				{friends.map((friend) => (
+				{friends.map((friend, i) => (
 					<Friend
-						key={friend._id}
-						friendId={friend._id}
+						key={i}
+						friendId={friend.id}
 						name={`${friend.firstName} ${friend.lastName}`}
 						subtitle={friend.occupation}
 						userPicturePath={friend.picturePath}
+						list="list"
 					/>
 				))}
 			</Box>

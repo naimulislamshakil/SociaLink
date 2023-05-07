@@ -29,6 +29,7 @@ exports.createFriendService = async (id, email) => {
 	const makeFriendUserData = await USER_MODEL.findById(id);
 
 	const friend = {
+		id: makeFriendUserData._id,
 		firstName: makeFriendUserData.firstName,
 		lastName: makeFriendUserData.lastName,
 		picturePath: makeFriendUserData.picturePath,
@@ -42,4 +43,11 @@ exports.createFriendService = async (id, email) => {
 	const result = await USER_MODEL.findOne({ email });
 
 	return result;
+};
+
+exports.removeFriendService = async (id, email) => {
+	const user = await USER_MODEL.findOne({ email });
+	user.friends = user.friends.filter((friend) => friend.id.toString() !== id);
+	user.save();
+	return user;
 };

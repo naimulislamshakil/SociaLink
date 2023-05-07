@@ -114,3 +114,22 @@ exports.createFriendCollaction = async (req, res) => {
 		});
 	}
 };
+
+exports.removeFriendCollaction = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const result = await Service.removeFriendService(id, req.user.email);
+
+		res.status(200).json({
+			status: 'Success',
+			message: 'Remove Friend Successfully.',
+			user: result,
+		});
+	} catch (error) {
+		res.status(404).json({
+			status: 'Failed',
+			message: 'Friend Not Remove.',
+		});
+	}
+};

@@ -33,12 +33,11 @@ const userSchema = mongoose.Schema(
 			type: String,
 			default: '',
 		},
-		friends: [
-			{
-				type: Array,
-				default: [],
-			},
-		],
+		friends: {
+			type: Array,
+			default: [],
+		},
+
 		post: [
 			{
 				type: mongoose.Schema.Types.ObjectId,

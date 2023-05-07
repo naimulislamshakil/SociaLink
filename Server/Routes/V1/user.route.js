@@ -10,4 +10,8 @@ router
 	.route('/addFriend/:id')
 	.get(verifyToken, Collaction.createFriendCollaction);
 
+router
+	.route('/removeFriend/:id')
+	.get(verifyToken, Collaction.removeFriendCollaction);
+
 module.exports = router;
