@@ -133,3 +133,20 @@ exports.removeFriendCollaction = async (req, res) => {
 		});
 	}
 };
+
+exports.postLikeCollaction = async (req, res) => {
+	try {
+		const result = await Service.postLikeService(req.params.id, req.user.id);
+
+		res.status(200).json({
+			status: 'Success',
+			message: 'Like Add Successfully.',
+			post: result,
+		});
+	} catch (error) {
+		res.status(404).json({
+			status: 'Failed',
+			message: error.message,
+		});
+	}
+};

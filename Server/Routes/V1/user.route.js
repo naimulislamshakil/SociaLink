@@ -14,4 +14,6 @@ router
 	.route('/removeFriend/:id')
 	.get(verifyToken, Collaction.removeFriendCollaction);
 
+router.route('/like/:id').get(verifyToken, Collaction.postLikeCollaction);
+
 module.exports = router;

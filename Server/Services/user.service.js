@@ -50,6 +50,14 @@ exports.removeFriendService = async (id, email) => {
 	user.friends = user.friends.filter((friend) => friend.id.toString() !== id);
 
 	await user.save();
-	console.log(user);
+
 	return user;
+};
+
+exports.postLikeService = async (id, userId) => {
+	const post = await POST_MODEL.findById(id);
+	post.likes = post.likes.push(userId);
+	await post.save();
+	const updatePost = await POST_MODEL.find();
+	return updatePost;
 };

@@ -44,7 +44,22 @@ const Post = () => {
 		getAllUsers();
 	}, [dispatch, token]);
 
-	const patchLike = () => {};
+	const patchLike = async (id) => {
+		console.log(`http://localhost:5000/api/v1/like/${id}`);
+		const res = await axios.get(`http://localhost:5000/api/v1/like/${id}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Basic ${token}`,
+			},
+		});
+
+		dispatch(
+			getPost({
+				post: res.data.post,
+			})
+		);
+	};
 	return (
 		<Box>
 			<MyPost />
@@ -74,7 +89,7 @@ const Post = () => {
 					<FlexBetween mt="0.25rem">
 						<FlexBetween gap="1rem">
 							<FlexBetween gap="0.3rem">
-								<IconButton onClick={patchLike}>
+								<IconButton onClick={() => patchLike(post._id)}>
 									{post.likes.includes(post.userId) ? (
 										<FavoriteOutlined sx={{ color: '#FF0000' }} />
 									) : (
