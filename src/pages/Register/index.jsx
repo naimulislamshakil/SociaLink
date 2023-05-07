@@ -35,7 +35,7 @@ const Register = () => {
 			validationSchema: userSchema,
 			onSubmit: async (values) => {
 				const res = await axios.post(
-					'localhost:5000/api/v1/auth/registe',
+					'http://localhost:5000/api/v1/auth/registe',
 					values
 				);
 

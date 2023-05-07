@@ -27,6 +27,7 @@ const Post = () => {
 	useEffect(() => {
 		const getAllUsers = async () => {
 			const res = await axios.get('http://localhost:5000/api/v1/getUsers', {
+				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Basic ${token}`,

@@ -101,7 +101,7 @@ exports.createFriendCollaction = async (req, res) => {
 		const { id } = req.params;
 
 		const result = await Service.createFriendService(id, req.user.email);
-
+		console.log('ashgdas');
 		res.status(200).json({
 			status: 'Success',
 			message: 'Add Friend Successfully.',

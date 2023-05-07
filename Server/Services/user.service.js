@@ -48,6 +48,6 @@ exports.createFriendService = async (id, email) => {
 exports.removeFriendService = async (id, email) => {
 	const user = await USER_MODEL.findOne({ email });
 	user.friends = user.friends.filter((friend) => friend.id.toString() !== id);
-	user.save();
+	await user.save();
 	return user;
 };

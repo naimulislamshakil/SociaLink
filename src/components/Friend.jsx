@@ -50,7 +50,26 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, list = '' }) => {
 	};
 
 	const deleteFriend = async () => {
-		console.log('object');
+		const res = await axios.get(
+			`http://localhost:5000/api/v1/removeFriend/${friendId}`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Basic ${token}`,
+				},
+			}
+		);
+		if (res.data.status === 'Success') {
+			toast.success(res.data.message);
+			dispatch(
+				userParsist({
+					user: res.data.user,
+				})
+			);
+		} else {
+			toast.error(res.data.message);
+		}
 	};
 
 	return (
