@@ -11,7 +11,7 @@ import {
 	Typography,
 	useTheme,
 } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ColorModeContext, tokens } from '../../theme';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
@@ -19,13 +19,19 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import SearchIcon from '@mui/icons-material/Search';
-import { Logout, PersonAdd, Settings } from '@mui/icons-material';
+import { Logout, Settings } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLogout } from '../../Store/Slices/UserSlices';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 	const theme = useTheme();
 	const colorMode = useContext(ColorModeContext);
 	const colors = tokens(theme.palette.mode);
-
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user);
+	const token = useSelector((state) => state.token);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -34,6 +40,17 @@ const Navbar = () => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	const logOut = () => {
+		dispatch(setLogout());
+		navigate('/');
+	};
+
+	useEffect(() => {
+		if (!token || !user) {
+			navigate('/');
+		}
+	}, [user, token, navigate]);
 
 	return (
 		<Box display="flex" justifyContent="space-between" p={2}>
@@ -112,24 +129,26 @@ const Navbar = () => {
 					transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 					anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 				>
-					<MenuItem onClick={handleClose}>
-						<Avatar /> Profile
-					</MenuItem>
-
-					<Divider />
-
-					<MenuItem onClick={handleClose}>
-						<ListItemIcon>
-							<Settings fontSize="small" />
-						</ListItemIcon>
-						Settings
-					</MenuItem>
-					<MenuItem onClick={handleClose}>
-						<ListItemIcon>
-							<Logout fontSize="small" />
-						</ListItemIcon>
-						Logout
-					</MenuItem>
+					{user && (
+						<>
+							<MenuItem onClick={handleClose}>
+								<Avatar /> Profile
+							</MenuItem>
+							<Divider />
+							<MenuItem onClick={handleClose}>
+								<ListItemIcon>
+									<Settings fontSize="small" />
+								</ListItemIcon>
+								Settings
+							</MenuItem>
+							<MenuItem onClick={logOut}>
+								<ListItemIcon>
+									<Logout fontSize="small" />
+								</ListItemIcon>
+								Logout
+							</MenuItem>
+						</>
+					)}
 				</Menu>
 			</Box>
 		</Box>

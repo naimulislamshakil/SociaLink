@@ -23,7 +23,7 @@ import {
 	MicOutlined,
 	MoreHorizOutlined,
 } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -31,12 +31,13 @@ const MyPost = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const isNotMobile = useMediaQuery('(min-width:1000px)');
+	const dispatch = useDispatch();
 	const token = useSelector((state) => state.token);
 	const [isImage, setIsImage] = useState(false);
 	const [image, setImage] = useState(null);
 	const [post, setPost] = useState('');
 	const { picturePath, _id, firstName, lastName, location } = useSelector(
-		(state) => state.user.user
+		(state) => state.user
 	);
 
 	const imageBB = 'aca65d68a0810361f2d2ced87f951d28';
@@ -76,6 +77,7 @@ const MyPost = () => {
 
 				if (res.data.status === 'Success') {
 					toast.success(res.data.message);
+					dispatch(res.data.result);
 					setImage(null);
 					setPost('');
 				} else {

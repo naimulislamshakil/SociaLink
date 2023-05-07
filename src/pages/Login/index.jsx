@@ -40,6 +40,7 @@ const Login = () => {
 				dispatch(
 					setLogin({
 						token: res.data.token,
+						user: res.data.user,
 					})
 				);
 			},

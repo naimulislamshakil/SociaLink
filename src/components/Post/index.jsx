@@ -20,9 +20,9 @@ const Post = () => {
 	const colors = tokens(theme.palette.mode);
 	const [isComments, setIsComments] = useState(false);
 	const dispatch = useDispatch();
-	const posts = useSelector((state) => state.post?.post);
+	const posts = useSelector((state) => state.post);
 	const token = useSelector((state) => state.token);
-	const loggedInUserId = useSelector((state) => state.user.user._id);
+	const loggedInUserId = useSelector((state) => state.user._id);
 
 	useEffect(() => {
 		const getAllUsers = async () => {
@@ -74,7 +74,7 @@ const Post = () => {
 						<FlexBetween gap="1rem">
 							<FlexBetween gap="0.3rem">
 								<IconButton onClick={patchLike}>
-									{post.likes?.filter((id) => id === post.userId) ? (
+									{post.likes.includes(post.userId) ? (
 										<FavoriteOutlined sx={{ color: '#FF0000' }} />
 									) : (
 										<FavoriteBorderOutlined />

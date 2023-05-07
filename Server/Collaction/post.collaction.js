@@ -7,6 +7,7 @@ exports.createPostCollaction = async (req, res) => {
 		res.status(200).json({
 			status: 'Success',
 			message: 'Post Created Successfully.',
+			result,
 		});
 	} catch (error) {
 		res.status(404).json({

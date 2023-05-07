@@ -12,7 +12,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 	const colors = tokens(theme.palette.mode);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const friends = useSelector((state) => state.user.user.friends);
+	const friends = useSelector((state) => state.user.friends);
 	const token = useSelector((state) => state.token);
 
 	const isFriend = friends.find((friend) => friend._id === friendId);
