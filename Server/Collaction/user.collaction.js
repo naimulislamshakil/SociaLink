@@ -40,7 +40,7 @@ exports.loginUserCollaction = async (req, res) => {
 			});
 		}
 
-		const token = genarateToken(email);
+		const token = genarateToken(email, user._id);
 
 		const { password: pass, ...other } = user.toObject();
 
