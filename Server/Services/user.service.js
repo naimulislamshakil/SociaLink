@@ -8,7 +8,7 @@ exports.createUserService = async (data) => {
 };
 
 exports.loginUserService = async (email) => {
-	const result = await USER_MODEL.findOne({ email });
+	const result = await USER_MODEL.findOne({ email }).populate('friends');
 
 	return result;
 };

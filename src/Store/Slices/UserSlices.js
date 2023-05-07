@@ -24,6 +24,13 @@ const authSlice = createSlice({
 		getPost: (state, action) => {
 			state.post = action.payload.post;
 		},
+		// setPost: (state, action) => {
+		// 	const updatedPosts = state.post.map((post) => {
+		// 		if (post._id === action.payload.post._id) return action.payload.post;
+		// 		return post;
+		// 	});
+		// 	state.posts = updatedPosts;
+		// },
 		setLogout: (state, action) => {
 			state.token = null;
 			state.user = null;

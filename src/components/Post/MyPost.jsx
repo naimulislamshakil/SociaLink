@@ -26,6 +26,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { getPost } from '../../Store/Slices/UserSlices';
 
 const MyPost = () => {
 	const theme = useTheme();
@@ -77,7 +78,11 @@ const MyPost = () => {
 
 				if (res.data.status === 'Success') {
 					toast.success(res.data.message);
-					dispatch(res.data.result);
+					dispatch(
+						getPost({
+							post: res.data.result,
+						})
+					);
 					setImage(null);
 					setPost('');
 				} else {
