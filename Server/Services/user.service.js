@@ -39,6 +39,7 @@ exports.createFriendService = async (id, email) => {
 		{ email },
 		{ $push: { friends: friend } }
 	);
-	const result = await (await USER_MODEL.find({ email })).reverse();
+	const result = await USER_MODEL.findOne({ email });
+
 	return result;
 };

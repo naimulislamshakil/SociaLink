@@ -1,8 +1,11 @@
 import { PersonAddOutlined, PersonRemoveOutlined } from '@mui/icons-material';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import axios from 'axios';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { userParsist } from '../Store/Slices/UserSlices';
 import { tokens } from '../theme';
 import FlexBetween from './FlexBeyween';
 import UserImage from './UserImage';
@@ -17,8 +20,31 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 	const token = useSelector((state) => state.token);
 
 	const isFriend = friends.find((friend) => friend._id === friendId);
-	console.log(friends);
-	const patchFriend = () => {};
+
+	const patchFriend = async () => {
+		const res = await axios.get(
+			`http://localhost:5000/api/v1/addFriend/${friendId}`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Basic ${token}`,
+				},
+			}
+		);
+
+		if (res.data.status === 'Success') {
+			toast.success(res.data.message);
+			dispatch(
+				userParsist({
+					user: res.data.user,
+				})
+			);
+		} else {
+			toast.error(res.data.message);
+		}
+	};
+
 	const profile = () => {
 		navigate(`/profile/${friendId}`);
 	};
