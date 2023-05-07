@@ -95,3 +95,22 @@ exports.getAllUserCollaction = async (req, res) => {
 		});
 	}
 };
+
+exports.createFriendCollaction = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const result = await Service.createFriendService(id, req.user.email);
+
+		res.status(200).json({
+			status: 'Success',
+			message: 'Add Friend Successfully.',
+			user: result,
+		});
+	} catch (error) {
+		res.status(404).json({
+			status: 'Failed',
+			message: 'Friend Not Added.',
+		});
+	}
+};
