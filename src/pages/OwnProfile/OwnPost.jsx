@@ -27,7 +27,7 @@ const OwnPost = () => {
 	useEffect(() => {
 		const getAllUsers = async () => {
 			const res = await axios.get(
-				'https://socialinkagfha.onrender.com/api/v1/getUsers',
+				'https://socialinkagfha.onrender.com/getUsers',
 				{
 					method: 'GET',
 					headers: {
@@ -49,7 +49,7 @@ const OwnPost = () => {
 
 	const patchLike = async (id) => {
 		const res = await axios.get(
-			`https://socialinkagfha.onrender.com/api/v1/like/${id}`,
+			`https://socialinkagfha.onrender.com/like/${id}`,
 			{
 				method: 'GET',
 				headers: {

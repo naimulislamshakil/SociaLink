@@ -23,7 +23,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, list = '' }) => {
 
 	const patchFriend = async () => {
 		const res = await axios.get(
-			`https://socialinkagfha.onrender.com/api/v1/addFriend/${friendId}`,
+			`https://socialinkagfha.onrender.com/addFriend/${friendId}`,
 			{
 				method: 'GET',
 				headers: {
@@ -51,7 +51,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, list = '' }) => {
 
 	const deleteFriend = async () => {
 		const res = await axios.get(
-			`https://socialinkagfha.onrender.com/api/v1/removeFriend/${friendId}`,
+			`https://socialinkagfha.onrender.com/removeFriend/${friendId}`,
 			{
 				method: 'GET',
 				headers: {

@@ -63,7 +63,7 @@ const OwnCreatePost = () => {
 				};
 
 				const res = await axios.post(
-					'https://socialinkagfha.onrender.com/api/v1/createPost',
+					'https://socialinkagfha.onrender.com/createPost',
 					userPost,
 					{
 						method: 'POST',
