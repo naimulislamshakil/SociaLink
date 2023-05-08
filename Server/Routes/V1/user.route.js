@@ -7,6 +7,9 @@ router.route('/auth/login').post(Collaction.loginUserCollaction);
 router.route('/auth/me').get(verifyToken, Collaction.getMeCollaction);
 router.route('/getUsers').get(verifyToken, Collaction.getAllUserCollaction);
 router
+	.route('/getSingleUser/:id')
+	.get(verifyToken, Collaction.getSingleUserCollaction);
+router
 	.route('/addFriend/:id')
 	.get(verifyToken, Collaction.createFriendCollaction);
 

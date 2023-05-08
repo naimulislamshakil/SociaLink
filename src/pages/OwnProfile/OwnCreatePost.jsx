@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { tokens } from '../../theme';
+import {
+	AttachFileOutlined,
+	DeleteOutlined,
+	EditOutlined,
+	GifBoxOutlined,
+	ImageOutlined,
+	MicOutlined,
+	MoreHorizOutlined,
+} from '@mui/icons-material';
 import {
 	Box,
 	Button,
@@ -10,36 +17,27 @@ import {
 	useMediaQuery,
 	useTheme,
 } from '@mui/material';
-import WidgetWrapper from '../WidgetWrapper';
-import FlexBetween from '../FlexBeyween';
-import UserImage from '../UserImage';
-import Dropzone from 'react-dropzone';
-import {
-	AttachFileOutlined,
-	DeleteOutlined,
-	EditOutlined,
-	GifBoxOutlined,
-	ImageOutlined,
-	MicOutlined,
-	MoreHorizOutlined,
-} from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import FlexBetween from '../../components/FlexBeyween';
+import UserImage from '../../components/UserImage';
+import WidgetWrapper from '../../components/WidgetWrapper';
+import React, { useState } from 'react';
+import Dropzone from 'react-dropzone';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getPost } from '../../Store/Slices/UserSlices';
+import { getPost } from 'Store/Slices/UserSlices';
+import { tokens } from '../../theme';
 
-const MyPost = () => {
+const OwnCreatePost = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
+	const singleUser = useSelector((state) => state.singleUser);
 	const isNotMobile = useMediaQuery('(min-width:1000px)');
 	const dispatch = useDispatch();
 	const token = useSelector((state) => state.token);
 	const [isImage, setIsImage] = useState(false);
 	const [image, setImage] = useState(null);
 	const [post, setPost] = useState('');
-	const { picturePath, _id, firstName, lastName, location } = useSelector(
-		(state) => state.user
-	);
 
 	const imageBB = 'aca65d68a0810361f2d2ced87f951d28';
 
@@ -55,11 +53,11 @@ const MyPost = () => {
 			.then((res) => res.json())
 			.then(async (data) => {
 				const userPost = {
-					userId: _id,
-					userPicturePath: picturePath,
-					firstName,
-					lastName,
-					location,
+					userId: singleUser._id,
+					userPicturePath: singleUser.picturePath,
+					firstName: singleUser.firstName,
+					lastName: singleUser.lastName,
+					location: singleUser.location,
 					image: data?.data?.url,
 					description: post,
 				};
@@ -95,7 +93,7 @@ const MyPost = () => {
 	return (
 		<WidgetWrapper bgcolor={colors.grey[900]}>
 			<FlexBetween gap="1.5rem">
-				<UserImage image={picturePath} />
+				<UserImage image={singleUser.picturePath} />
 				<InputBase
 					placeholder="What's on your mind..."
 					onChange={(e) => setPost(e.target.value)}
@@ -205,4 +203,4 @@ const MyPost = () => {
 	);
 };
 
-export default MyPost;
+export default OwnCreatePost;

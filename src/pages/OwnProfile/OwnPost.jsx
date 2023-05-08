@@ -1,26 +1,26 @@
-import { Box, Divider, IconButton, Typography, useTheme } from '@mui/material';
-import axios from 'axios';
-import WidgetWrapper from '../WidgetWrapper';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getPost } from '../../Store/Slices/UserSlices';
-import { tokens } from '../../theme';
-import MyPost from './MyPost';
-import Friend from '../Friend';
-import FlexBetween from '../FlexBeyween';
 import {
 	ChatBubbleOutlineOutlined,
 	FavoriteBorderOutlined,
 	FavoriteOutlined,
 	ShareOutlined,
 } from '@mui/icons-material';
+import { Box, Divider, IconButton, Typography, useTheme } from '@mui/material';
+import axios from 'axios';
+import FlexBetween from 'components/FlexBeyween';
+import Friend from 'components/Friend';
+import WidgetWrapper from 'components/WidgetWrapper';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPost } from 'Store/Slices/UserSlices';
+import { tokens } from '../../theme';
 
-const Post = () => {
+const OwnPost = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
+	const posts = useSelector((state) => state.singlePost);
 	const [isComments, setIsComments] = useState(false);
 	const dispatch = useDispatch();
-	const posts = useSelector((state) => state.post);
+
 	const token = useSelector((state) => state.token);
 	const loggedInUserId = useSelector((state) => state.user._id);
 
@@ -67,8 +67,6 @@ const Post = () => {
 	};
 	return (
 		<Box>
-			<MyPost />
-
 			{posts.map((post) => (
 				<WidgetWrapper key={post._id} bgcolor={colors.grey[900]} m="2rem 0">
 					<Friend
@@ -122,7 +120,11 @@ const Post = () => {
 								<Box key={`${post.firstName}-${i}`}>
 									<Divider />
 									<Typography
-										sx={{ color: colors.grey[100], m: '0.5rem 0', pl: '1rem' }}
+										sx={{
+											color: colors.grey[100],
+											m: '0.5rem 0',
+											pl: '1rem',
+										}}
 									>
 										{comment}
 									</Typography>
@@ -137,4 +139,4 @@ const Post = () => {
 	);
 };
 
-export default Post;
+export default OwnPost;

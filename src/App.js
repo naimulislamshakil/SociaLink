@@ -21,13 +21,16 @@ function App() {
 
 	useEffect(() => {
 		const parsist = async () => {
-			const res = await axios.get('http://localhost:5000/api/v1/auth/me', {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Basic ${token}`,
-				},
-			});
+			const res = await axios.get(
+				'https://sociallink-d3e40prko-naimulislamshakil.vercel.app/api/v1/auth/me',
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Basic ${token}`,
+					},
+				}
+			);
 
 			dispatch(
 				userParsist({

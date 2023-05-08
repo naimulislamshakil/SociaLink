@@ -150,3 +150,22 @@ exports.postLikeCollaction = async (req, res) => {
 		});
 	}
 };
+
+exports.getSingleUserCollaction = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const result = await Service.getSingleUserService(id);
+
+		res.status(200).json({
+			status: 'Success',
+			message: 'User Get Successfully.',
+			singleUser: result.result,
+			SinglePost: result.post,
+		});
+	} catch (error) {
+		res.status(404).json({
+			status: 'Failed',
+			message: 'User Not Get.',
+		});
+	}
+};

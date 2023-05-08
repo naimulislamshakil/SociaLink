@@ -23,7 +23,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, list = '' }) => {
 
 	const patchFriend = async () => {
 		const res = await axios.get(
-			`http://localhost:5000/api/v1/addFriend/${friendId}`,
+			`https://sociallink-d3e40prko-naimulislamshakil.vercel.app/api/v1/addFriend/${friendId}`,
 			{
 				method: 'GET',
 				headers: {
@@ -51,7 +51,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, list = '' }) => {
 
 	const deleteFriend = async () => {
 		const res = await axios.get(
-			`http://localhost:5000/api/v1/removeFriend/${friendId}`,
+			`https://sociallink-d3e40prko-naimulislamshakil.vercel.app/api/v1/removeFriend/${friendId}`,
 			{
 				method: 'GET',
 				headers: {

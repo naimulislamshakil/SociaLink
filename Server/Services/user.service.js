@@ -56,8 +56,19 @@ exports.removeFriendService = async (id, email) => {
 
 exports.postLikeService = async (id, userId) => {
 	const post = await POST_MODEL.findById(id);
-	post.likes = post.likes.push(userId);
-	await post.save();
+	const isLike = post.likes.includes(userId);
+
+	if (!isLike) {
+		await POST_MODEL.updateOne({ _id: id }, { $push: { likes: userId } });
+	} else {
+		await POST_MODEL.updateOne({ _id: id }, { $pull: { likes: userId } });
+	}
 	const updatePost = await POST_MODEL.find();
 	return updatePost;
+};
+
+exports.getSingleUserService = async (id) => {
+	const result = await USER_MODEL.findById(id);
+	const post = await POST_MODEL.find({ userId: id });
+	return { result, post };
 };
