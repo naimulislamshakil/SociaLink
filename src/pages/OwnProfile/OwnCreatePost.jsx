@@ -63,7 +63,7 @@ const OwnCreatePost = () => {
 				};
 
 				const res = await axios.post(
-					'https://sociallink-d3e40prko-naimulislamshakil.vercel.app/api/v1/createPost',
+					'https://socialinkagfha.onrender.com/api/v1/createPost',
 					userPost,
 					{
 						method: 'POST',

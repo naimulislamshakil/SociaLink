@@ -35,7 +35,7 @@ const Register = () => {
 			validationSchema: userSchema,
 			onSubmit: async (values) => {
 				const res = await axios.post(
-					'https://sociallink-d3e40prko-naimulislamshakil.vercel.app/api/v1/auth/registe',
+					'https://socialinkagfha.onrender.com/api/v1/auth/registe',
 					values
 				);
 

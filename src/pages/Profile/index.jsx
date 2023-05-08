@@ -17,7 +17,7 @@ const Profile = () => {
 
 	const getSingleUser = async () => {
 		const res = await axios.get(
-			`https://sociallink-d3e40prko-naimulislamshakil.vercel.app/api/v1/getSingleUser/${id}`,
+			`https://socialinkagfha.onrender.com/api/v1/getSingleUser/${id}`,
 			{
 				method: 'GET',
 				headers: {

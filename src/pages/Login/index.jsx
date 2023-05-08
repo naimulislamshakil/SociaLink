@@ -33,7 +33,7 @@ const Login = () => {
 			validationSchema: userSchema,
 			onSubmit: async (values) => {
 				const res = await axios.post(
-					'https://sociallink-d3e40prko-naimulislamshakil.vercel.app/api/v1/auth/login',
+					'https://socialinkagfha.onrender.com/api/v1/auth/login',
 					values
 				);
 
