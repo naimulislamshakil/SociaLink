@@ -22,7 +22,7 @@ function App() {
 	useEffect(() => {
 		const parsist = async () => {
 			const res = await axios.get(
-				'https://socialinkagfha.onrender.com/api/v1/auth/me',
+				'https://socialinkagfha.onrender.com/auth/me',
 				{
 					method: 'GET',
 					headers: {
