@@ -17,7 +17,7 @@ import { tokens } from '../../theme';
 const OwnPost = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
-	const posts = useSelector((state) => state.singlePost);
+	const posts = useSelector((state) => state.posts);
 	const [isComments, setIsComments] = useState(false);
 	const dispatch = useDispatch();
 

@@ -10,7 +10,7 @@ const authSlice = createSlice({
 		error: null,
 		message: null,
 		singleUser: null,
-		singlePost: [],
+		posts: [],
 	},
 	reducers: {
 		setLogin: (state, action) => {
@@ -28,7 +28,7 @@ const authSlice = createSlice({
 		},
 		singleUser: (state, action) => {
 			state.singleUser = action.payload.singleUser;
-			state.singlePost = action.payload.singlePost;
+			state.posts = action.payload.singlePost;
 		},
 		setLogout: (state, action) => {
 			state.token = null;

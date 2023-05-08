@@ -1,43 +1,15 @@
 import { Box, useMediaQuery } from '@mui/material';
-import axios from 'axios';
 import OwnProfile from 'pages/OwnProfile';
 import OwnCreatePost from 'pages/OwnProfile/OwnCreatePost';
 import OwnFriendList from 'pages/OwnProfile/OwnFriendList';
 import OwnPost from 'pages/OwnProfile/OwnPost';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+
 import { useParams } from 'react-router-dom';
-import { singleUser } from '../../Store/Slices/UserSlices';
 
 const Profile = () => {
 	const { id } = useParams();
-	const token = useSelector((state) => state.token);
-	const dispatch = useDispatch();
 	const isNonMobileScreens = useMediaQuery('(min-width:1000px)');
-
-	const getSingleUser = async () => {
-		const res = await axios.get(
-			`https://socialinkagfha.onrender.com/getSingleUser/${id}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Basic ${token}`,
-				},
-			}
-		);
-
-		dispatch(
-			singleUser({
-				singleUser: res.data.singleUser,
-				singlePost: res.data.singlePost,
-			})
-		);
-	};
-
-	useEffect(() => {
-		getSingleUser();
-	}, [id, token]);
 	return (
 		<Box>
 			<Box
@@ -48,7 +20,7 @@ const Profile = () => {
 				justifyContent="center"
 			>
 				<Box flexBasis={isNonMobileScreens ? '26%' : undefined}>
-					<OwnProfile />
+					<OwnProfile id={id} />
 					<Box m="2rem 0" />
 					<OwnFriendList />
 				</Box>

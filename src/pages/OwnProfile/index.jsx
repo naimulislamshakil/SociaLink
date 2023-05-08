@@ -7,21 +7,50 @@ import { Box, Divider, Typography, useTheme } from '@mui/material';
 import FlexBetween from '../../components/FlexBeyween';
 import UserImage from '../../components/UserImage';
 import WidgetWrapper from '../../components/WidgetWrapper';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { tokens } from '../../theme';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { singleUser } from 'Store/Slices/UserSlices';
 
-const OwnProfile = () => {
+const OwnProfile = ({ id }) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
-	const singleUser = useSelector((state) => state.singleUser);
+	const singleUse = useSelector((state) => state.singleUser);
+	const token = useSelector((state) => state.token);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const getSingleUser = async () => {
+			const res = await axios.get(
+				`https://socialinkagfha.onrender.com/getSingleUser/${id}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Basic ${token}`,
+					},
+				}
+			);
+
+			console.log(`https://socialinkagfha.onrender.com/getSingleUser/${id}`);
+
+			dispatch(
+				singleUser({
+					singleUser: res.data.singleUser,
+					singlePost: res.data.singlePost,
+				})
+			);
+		};
+		getSingleUser();
+	}, [dispatch, id, singleUse, token]);
 
 	return (
 		<WidgetWrapper bgcolor={colors.grey[900]}>
 			{/* FIRST ROW */}
 			<FlexBetween gap="0.5rem" pb="1.1rem">
 				<FlexBetween gap="1rem">
-					<UserImage image={singleUser.picturePath} />
+					<UserImage image={singleUse?.picturePath} />
 					<Box>
 						<Typography
 							variant="h4"
@@ -34,10 +63,10 @@ const OwnProfile = () => {
 								},
 							}}
 						>
-							{singleUser.firstName} {singleUser.lastName}
+							{singleUse?.firstName} {singleUse?.lastName}
 						</Typography>
 						<Typography color={colors.grey[100]}>
-							{singleUser.friends.length} friends
+							{singleUse?.friends?.length} friends
 						</Typography>
 					</Box>
 				</FlexBetween>
@@ -54,7 +83,7 @@ const OwnProfile = () => {
 						sx={{ color: colors.grey[100] }}
 					/>
 					<Typography color={colors.grey[100]}>
-						{singleUser.location}
+						{singleUse?.location}
 					</Typography>
 				</Box>
 				<Box display="flex" alignItems="center" gap="1rem">
@@ -63,7 +92,7 @@ const OwnProfile = () => {
 						sx={{ color: colors.grey[100] }}
 					/>
 					<Typography color={colors.grey[100]}>
-						{singleUser.occupation}
+						{singleUse?.occupation}
 					</Typography>
 				</Box>
 			</Box>
@@ -77,7 +106,7 @@ const OwnProfile = () => {
 						Who's viewed your profile
 					</Typography>
 					<Typography color={colors.grey[100]} fontWeight="500">
-						{singleUser.viewedProfile}
+						{singleUse?.viewedProfile}
 					</Typography>
 				</FlexBetween>
 				<FlexBetween>
@@ -85,7 +114,7 @@ const OwnProfile = () => {
 						Impressions of your post
 					</Typography>
 					<Typography color={colors.grey[100]} fontWeight="500">
-						{singleUser.impressions}
+						{singleUse?.impressions}
 					</Typography>
 				</FlexBetween>
 			</Box>
@@ -112,7 +141,7 @@ const OwnProfile = () => {
 								Twitter
 							</Typography>
 							<Typography color={colors.grey[100]}>
-								{singleUser.twiter}
+								{singleUse?.twiter}
 							</Typography>
 						</Box>
 					</FlexBetween>
@@ -126,7 +155,7 @@ const OwnProfile = () => {
 								Linkedin
 							</Typography>
 							<Typography color={colors.grey[100]}>
-								{singleUser.linkedin}
+								{singleUse?.linkedin}
 							</Typography>
 						</Box>
 					</FlexBetween>
